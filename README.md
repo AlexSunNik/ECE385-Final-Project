@@ -4,6 +4,7 @@ Fish Hunter on FPGA (ECE 385 Final Project)
 Xinglong Sun and Churan He
 
 Built a complex graphics game, Fish Hunter, on the FPGA board DE2-115 in SystemVerilog, C, and Python.
+
 •Designed and coded a drawing system in SystemVerilog that could output complex graphics pre-stored in SRAM to the VGA monitor.
 
 •Accomplished complicated game logic and mathematical computations in C on NIOS II soft processor
