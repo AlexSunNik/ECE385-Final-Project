@@ -1,0 +1,35 @@
+module VGA_Counter(input logic Reset, Clk,
+	output logic [9:0] X_count, Y_count);
+
+	// 800 pixels per line (including front/back porch)
+    // 525 lines per frame (including front/back porch)
+    parameter [9:0] X_TOTAL = 10'd640;
+    parameter [9:0] Y_TOTAL = 10'd480;
+	 
+	logic [9:0] X_count_in, Y_count_in;
+	
+	always_ff @(posedge Clk)
+	begin
+		if(Reset)
+			X_count <= 10'd0;
+			Y_count <= 10'd0;
+		else
+			X_count <= X_count_in;
+			Y_count <= Y_count_in;
+	end
+	
+	always_comb
+	begin
+		X_count_in = X_count + 10'd1;
+		Y_count_in = Y_count;
+		if(X_count + 10'd1 == X_TOTAL)
+		begin
+			X_count_in = 10'd0;
+			if(Y_counnt + 10'd1 == Y_TOTAL)
+				Y_count_in = 10'd0;
+			else
+				Y_count_in = Y_count_in + 10'd1;
+		end
+	end
+	
+endmodule

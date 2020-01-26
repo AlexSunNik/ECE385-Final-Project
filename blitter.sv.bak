@@ -1,0 +1,19 @@
+//Connection-interface between AVALON Interface, SRAM, and Frame Buffer
+//Act as a draw engine
+//Author : Xinglong Sun
+//Date : Nov.20 2019
+module blitter(
+	input logic Clk, Reset_h,
+	input logic [15:0] Data_Read,			//Data read from SRAM
+	output logic [19:0] SRAM_ADDR,
+	output logic [9:0] AddrX, AddrY,		//Location of the pixel on the screen
+	output logic [15:0] ColorIdxIn);		//Data input to the Frame Buffer
+	
+	//
+
+	//FSM Implementation
+	always_ff @(posedge Clk)
+	begin
+		
+	end
+endmodule

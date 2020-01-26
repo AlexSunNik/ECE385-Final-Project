@@ -1,0 +1,7 @@
+module DrawEngine(input logic [31:0] PatternIdx );
+
+
+
+
+
+endmodule

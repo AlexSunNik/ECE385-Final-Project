@@ -1,0 +1,70 @@
+/*
+0,0   41,44
+45,0  80 44
+94,0  130,49
+140,0 175,46
+180,0 218,48
+221,0 256,48
+261,0 295,48
+302,0 338,47
+*/
+
+module IndMatcher(
+	input logic [9:0] Draw_Idx,
+	output logic [9:0] SRAM_ADDR_X_Start, SRAM_ADDR_Y_Start);
+	always_comb
+	begin
+		case(Draw_Idx)
+			10'd0:
+				begin
+					SRAM_ADDR_X_Start = 10'd0;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd1:
+				begin
+					SRAM_ADDR_X_Start = 10'd0;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd2:
+				begin
+					SRAM_ADDR_X_Start = 10'd45;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd3:
+				begin
+					SRAM_ADDR_X_Start = 10'd94;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd4:
+				begin
+					SRAM_ADDR_X_Start = 10'd140;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd5:
+				begin
+					SRAM_ADDR_X_Start = 10'd180;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd6:
+				begin
+					SRAM_ADDR_X_Start = 10'd221;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd7:
+				begin
+					SRAM_ADDR_X_Start = 10'd261;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			10'd8:
+				begin
+					SRAM_ADDR_X_Start = 10'd302;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+			default:
+				begin
+					SRAM_ADDR_X_Start = 10'd0;
+					SRAM_ADDR_Y_Start = 10'd0;
+				end
+		endcase
+	end
+endmodule

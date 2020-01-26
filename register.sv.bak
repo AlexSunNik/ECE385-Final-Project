@@ -1,0 +1,15 @@
+module register #(parameter N = 16)
+	(input logic [N-1:0] d_in, init_d,
+	input logic CLK,RESET,state_load,INIT,
+	output logic [N-1:0] d_out);
+	
+	always_ff @(posedge CLK)
+	begin
+		if(RESET)
+			d_out <= {N{1'b0}};
+		else if (state_load)
+			d_out <= d_in;
+		else if (INIT)
+			d_out <= init_d;
+	end
+endmodule

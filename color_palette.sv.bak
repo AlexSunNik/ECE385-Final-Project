@@ -1,0 +1,250 @@
+module  color_palette (  input       [15:0] ColorIdx,
+                       output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
+                     );
+    
+    logic [7:0] Red, Green, Blue;
+    
+    // Output colors to VGA
+    assign VGA_R = Red;
+    assign VGA_G = Green;
+    assign VGA_B = Blue;
+    
+    // Assign color based on is_ball signal
+    always_comb
+    begin
+        case(ColorIdx)
+		   16'h0000:
+			begin
+				 Red = 8'ha;
+				 Green = 8'hba;
+				 Blue = 8'hf5;
+			end
+
+			16'h0001:
+			begin
+				 Red = 8'h25;
+				 Green = 8'h94;
+				 Blue = 8'hc6;
+			end
+
+			16'h0002:
+			begin
+				 Red = 8'h9f;
+				 Green = 8'hd2;
+				 Blue = 8'he8;
+			end
+
+			16'h0003:
+			begin
+				 Red = 8'h5;
+				 Green = 8'h54;
+				 Blue = 8'h7c;
+			end
+
+			16'h0004:
+			begin
+				 Red = 8'h6a;
+				 Green = 8'heb;
+				 Blue = 8'hfc;
+			end
+
+			16'h0005:
+			begin
+				 Red = 8'h32;
+				 Green = 8'hde;
+				 Blue = 8'hfb;
+			end
+
+			16'h0006:
+			begin
+				 Red = 8'ha9;
+				 Green = 8'ha5;
+				 Blue = 8'h74;
+			end
+
+			16'h0007:
+			begin
+				 Red = 8'h4a;
+				 Green = 8'h9d;
+				 Blue = 8'hb7;
+			end
+
+			16'h0008:
+			begin
+				 Red = 8'h25;
+				 Green = 8'hb0;
+				 Blue = 8'hde;
+			end
+
+			16'h0009:
+			begin
+				 Red = 8'he;
+				 Green = 8'h7e;
+				 Blue = 8'hb3;
+			end
+
+			16'h000a:
+			begin
+				 Red = 8'hcd;
+				 Green = 8'hea;
+				 Blue = 8'hf3;
+			end
+
+			16'h000b:
+			begin
+				 Red = 8'h75;
+				 Green = 8'h84;
+				 Blue = 8'h97;
+			end
+
+			16'h000c:
+			begin
+				 Red = 8'h7;
+				 Green = 8'hda;
+				 Blue = 8'hf8;
+			end
+
+			16'h000d:
+			begin
+				 Red = 8'hf;
+				 Green = 8'h4f;
+				 Blue = 8'h54;
+			end
+
+			16'h000e:
+			begin
+				 Red = 8'h1c;
+				 Green = 8'hba;
+				 Blue = 8'ha5;
+			end
+
+			16'h000f:
+			begin
+				 Red = 8'h87;
+				 Green = 8'hf1;
+				 Blue = 8'hfd;
+			end
+
+			16'h0010:
+			begin
+				 Red = 8'h4c;
+				 Green = 8'he3;
+				 Blue = 8'hfa;
+			end
+
+			16'h0011:
+			begin
+				 Red = 8'h1c;
+				 Green = 8'hc9;
+				 Blue = 8'hf9;
+			end
+
+			16'h0012:
+			begin
+				 Red = 8'h8c;
+				 Green = 8'hb6;
+				 Blue = 8'hba;
+			end
+
+			16'h0013:
+			begin
+				 Red = 8'h51;
+				 Green = 8'h56;
+				 Blue = 8'h5d;
+			end
+
+			16'h0014:
+			begin
+				 Red = 8'h3d;
+				 Green = 8'hca;
+				 Blue = 8'he5;
+			end
+
+			16'h0015:
+			begin
+				 Red = 8'he0;
+				 Green = 8'hd5;
+				 Blue = 8'h6e;
+			end
+
+			16'h0016:
+			begin
+				 Red = 8'hb;
+				 Green = 8'h94;
+				 Blue = 8'h9b;
+			end
+
+			16'h0017:
+			begin
+				 Red = 8'he;
+				 Green = 8'h72;
+				 Blue = 8'h73;
+			end
+
+			16'h0018:
+			begin
+				 Red = 8'h7c;
+				 Green = 8'hc1;
+				 Blue = 8'hdb;
+			end
+
+			16'h0019:
+			begin
+				 Red = 8'h4c;
+				 Green = 8'hc8;
+				 Blue = 8'h8d;
+			end
+
+			16'h001a:
+			begin
+				 Red = 8'h2f;
+				 Green = 8'h86;
+				 Blue = 8'h83;
+			end
+
+			16'h001b:
+			begin
+				 Red = 8'h9;
+				 Green = 8'h92;
+				 Blue = 8'hc6;
+			end
+
+			16'h001c:
+			begin
+				 Red = 8'h9;
+				 Green = 8'hc4;
+				 Blue = 8'hcd;
+			end
+
+			16'h001d:
+			begin
+				 Red = 8'h9;
+				 Green = 8'h6b;
+				 Blue = 8'h9b;
+			end
+
+			16'h001e:
+			begin
+				 Red = 8'hb;
+				 Green = 8'ha6;
+				 Blue = 8'he1;
+			end
+
+			16'h001f:
+			begin
+				 Red = 8'hb7;
+				 Green = 8'h84;
+				 Blue = 8'hdf;
+			end
+
+		  default:
+			begin
+				 Red = 8'h00;
+				 Green = 8'h00;
+				 Blue = 8'h00;
+			end
+			
+		  endcase
+    end 
+    
+endmodule

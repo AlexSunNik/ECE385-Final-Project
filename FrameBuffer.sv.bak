@@ -1,0 +1,14 @@
+module framebuffer(input logic Clk, Reset_h,
+	input [9:0]DrawX, DrawY,
+	output [15:0] ColorIdx);
+	
+	logic [15:0] frame_buf[640 * 480];
+	always_ff @(posedge Clk)
+	begin
+		if(Reset_h)
+		begin
+			for(int i = 0; i < 640*480; i++)
+				reg_file[i] <= 16'b0;
+		end
+	end
+endmodule

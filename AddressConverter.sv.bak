@@ -1,0 +1,7 @@
+module AddressConverter(input logic [9:0] DrawX, DrawY,
+	input int height, width,
+	output logic [19:0] Addr);
+	
+	assign Addr = DrawY * 640 + DrawX;
+	
+endmodule

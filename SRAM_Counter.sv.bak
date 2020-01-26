@@ -1,0 +1,41 @@
+module SRAM_Counter(input logic ctr_reset, Clk, INIT_SRAM,
+	input logic [9:0] SRAM_ADDR_X_Start, SRAM_ADDR_Y_Start,
+	output logic [19:0] SRAM_ADDR);
+	
+	logic[9:0] x_count, y_count;
+	assign SRAM_ADDR = y_count * 640 + x_count;
+	
+	logic [9:0] X_count_in, Y_count_in, X_count, Y_count;
+	
+	always_ff @(posedge Clk)
+	begin
+		if(ctr_reset)
+		begin
+			X_count <= 10'd0;
+			Y_count <= 10'd0;
+		end
+		else if(INIT)
+			X_count <= X_count_INIT;
+			Y_count <= Y_count_INIT;
+		else
+		begin
+			X_count <= X_count_in;
+			Y_count <= Y_count_in;
+		end
+	end
+	
+	always_comb
+	begin
+		X_count_in = X_count + 10'd1;
+		Y_count_in = Y_count;
+		if(X_count + 10'd1 == X_TOTAL)
+		begin
+			X_count_in = 10'd0;
+			if(Y_count + 10'd1 == Y_TOTAL)
+				Y_count_in = 10'd0;
+			else
+				Y_count_in = Y_count_in + 10'd1;
+		end
+	end
+	
+endmodule

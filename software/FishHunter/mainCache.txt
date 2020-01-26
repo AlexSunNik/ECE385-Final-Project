@@ -1,0 +1,35 @@
+printf("Start enumerating\n");
+	keyboard_init();
+
+	init_background();	//Initialize background
+	int bwfish[] = BWFISH;
+	int pfish[] = PFISH;
+	Animal animal0 = {.pat = bwfish, .len = BWFISH_LEN, .x = 320, .y = sin(5.12)*20.0+260, .width = BWFISH_WIDTH, .height = BWFISH_HEIGHT, .point = BWFISH_PT,.curIdx = BWFISH_IDXSTART, .idxStart = BWFISH_IDXSTART};
+	Animal animal1 = {.pat = bwfish, .len = BWFISH_LEN, .x = 200, .y = sin(5.12)*20.0+280, .width = BWFISH_WIDTH, .height = BWFISH_HEIGHT, .point = BWFISH_PT,.curIdx = BWFISH_IDXSTART, .idxStart = BWFISH_IDXSTART};
+	Animal animal2 = {.pat = pfish, .len = PFISH_LEN, .x = 15, .y = 70, .width = PFISH_WIDTH, .height = PFISH_HEIGHT, .point = PFISH_PT,.curIdx = PFISH_IDXSTART, .idxStart = PFISH_IDXSTART};
+	Animal todraw[3] = {animal0, animal1, animal2};
+	Animal todraw_prev[3];
+	Cannon cannon = {.degree = 90, .curIdx = 12, .idxStart = CANNON_IDXSTART};
+	while(1){
+		int key = get_key();
+		printf("Key Code : %d\n",key);
+		move_cannon(&cannon, key);
+		//draw_backgrounds(3,todraw_prev);
+		draw_animals(3,todraw,todraw_prev);
+		draw_cannon(cannon);
+		delay_loop();
+		for(int i = 0; i < 3; i++)
+			todraw_prev[i] = todraw[i];
+		for(int i = 0; i < 3; i++){
+			if (i < 2)
+				todraw[i].x -= 3;
+			else
+				todraw[i].x += 3;
+			todraw[i].y = sin(0.08*todraw[i].x)*20.0+260;
+			todraw[i].curIdx = ((todraw[i].curIdx - todraw[i].idxStart+1) % todraw[i].len) + todraw[i].idxStart;
+			if(todraw[i].x <= -1*(todraw[i].width))
+				todraw[i].x = 640;
+			if(todraw[i].x > 640)
+				todraw[i].x = -1*(todraw[i].width)+3;
+		}
+	}

@@ -1,0 +1,97 @@
+module  fish ( input         Clk,                // 50 MHz clock
+                             Reset_h,              // Active-high reset signal
+                             frame_clk,          // The clock indicating a new frame (~60Hz)
+					//input [7:0]		keycode,
+               input [9:0]   DrawX, DrawY,       // Current pixel coordinates
+               output logic  is_Fish,             // Whether current pixel belongs to fish or background
+					output logic [9:0] Fish_X_Pos_Out, Fish_Y_Pos_Out
+              );
+    
+    parameter [9:0] Fish_X_Center = 10'd320;  // Center position on the X axis
+    parameter [9:0] Fish_Y_Center = 10'd240;  // Center position on the Y axis
+    parameter [9:0] Fish_X_Min = 10'd0;       // Leftmost point on the X axis
+    parameter [9:0] Fish_X_Max = 10'd639;     // Rightmost point on the X axis
+    parameter [9:0] Fish_Y_Min = 10'd0;       // Topmost point on the Y axis
+    parameter [9:0] Fish_Y_Max = 10'd479;     // Bottommost point on the Y axis
+    parameter [9:0] Fish_X_Step = 10'd1;      // Step size on the X axis
+    parameter [9:0] Fish_Y_Step = 10'd1;      // Step size on the Y axis
+    parameter [9:0] Fish_Height = 10'd20;        // Fish Height
+    parameter [9:0] Fish_Width = 10'd30;			//Fish Width
+	 
+    logic [9:0] Fish_X_Pos, Fish_X_Motion, Fish_Y_Pos, Fish_Y_Motion;
+    logic [9:0] Fish_X_Pos_in, Fish_X_Motion_in, Fish_Y_Pos_in, Fish_Y_Motion_in;
+    
+    //////// Do not modify the always_ff blocks. ////////
+    // Detect rising edge of frame_clk
+	 
+    logic frame_clk_delayed, frame_clk_rising_edge;
+    always_ff @ (posedge Clk) begin
+        frame_clk_delayed <= frame_clk;
+        frame_clk_rising_edge <= (frame_clk == 1'b1) && (frame_clk_delayed == 1'b0);
+    end
+    // Update registers
+    always_ff @ (posedge Clk)
+    begin
+        if (Reset_h)
+        begin
+            Fish_X_Pos <= Fish_X_Center;
+            Fish_Y_Pos <= Fish_Y_Center;
+            Fish_X_Motion <= Fish_X_Step;
+            Fish_Y_Motion <= 10'b0;
+        end
+        else
+        begin
+            Fish_X_Pos <= Fish_X_Pos_in;
+            Fish_Y_Pos <= Fish_Y_Pos_in;
+            Fish_X_Motion <= Fish_X_Motion_in;
+            Fish_Y_Motion <= Fish_Y_Motion_in;
+        end
+    end
+    //////// Do not modify the always_ff blocks. ////////
+    
+    // You need to modify always_comb block.
+    always_comb
+    begin
+        // By default, keep motion and position unchanged
+        Fish_X_Pos_in = Fish_X_Pos;
+        Fish_Y_Pos_in = Fish_Y_Pos;
+        Fish_X_Motion_in = Fish_X_Motion;
+        Fish_Y_Motion_in = Fish_Y_Motion;
+        // Update position and motion only at rising edge of frame clock
+        if (frame_clk_rising_edge)
+        begin
+				
+            if( Fish_Y_Pos + Fish_Height >= Fish_Y_Max )  // Fish is at the bottom edge, BOUNCE!
+                Fish_Y_Motion_in = (~(Fish_Y_Step) + 1'b1);  // 2's complement.  
+            else if ( Fish_Y_Pos <= 0 )  // Fish is at the top edge, BOUNCE!
+                Fish_Y_Motion_in = Fish_Y_Step;
+            // TODO: Add other boundary detections and handle keypress here.
+				
+				if( Fish_X_Pos + Fish_Width >= Fish_X_Max )  // Fish is at the bottom edge, BOUNCE!
+                Fish_X_Motion_in = (~(Fish_X_Step) + 1'b1);  // 2's complement.  
+            else if ( Fish_X_Pos <= 0 )  // Fish is at the top edge, BOUNCE!
+                Fish_X_Motion_in = Fish_X_Step;
+			
+            // Update the Fish's position with its motion
+            Fish_X_Pos_in = Fish_X_Pos + Fish_X_Motion;
+            Fish_Y_Pos_in = Fish_Y_Pos + Fish_Y_Motion;
+        end
+        
+
+    end
+    
+    // Compute whether the pixel corresponds to Fish or background
+    /* Since the multiplicants are required to be signed, we have to first cast them
+       from logic to int (signed by default) before they are multiplied. */
+		
+    always_comb begin
+        if (DrawX >= Fish_X_Pos && DrawX <= Fish_X_Pos + Fish_Width && DrawY <= Fish_Y_Pos + Fish_Height && DrawY >= Fish_Y_Pos) 
+            is_Fish = 1'b1;
+        else
+            is_Fish = 1'b0;
+    end
+	 
+	 assign Fish_X_Pos_Out = Fish_X_Pos;
+	 assign Fish_Y_Pos_Out = Fish_Y_Pos;
+    
+endmodule

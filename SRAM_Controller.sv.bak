@@ -1,0 +1,2 @@
+module bufferSRAM(input logic Clk, Reset, 
+	output logic R_buffer, G_buffer, )
